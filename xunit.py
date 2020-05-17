@@ -9,8 +9,20 @@ class TestCase:
         result = TestResult()
         result.testStarted()
         self.setUp()
-        method = getattr(self, self.name)
-        method()
+
+        # NG: method is only used here
+        # method = getattr(self, self.name)
+        # try:
+        #     method()
+        # except:
+        #     result.testFailed()
+
+        try:
+            method = getattr(self, self.name)
+            method()
+        except:
+            result.testFailed()
+
         self.tearDown()
         return result
 
@@ -56,7 +68,7 @@ class TestCaseTest(TestCase):
         result.testFailed()
         assert("1 run, 1 failed" == result.summary())
 
-TestCaseTest("testTemplateMethod").run()
-TestCaseTest("testResult").run()
-#TestCaseTest("testFailedResult").run()
-TestCaseTest("testFailedResultFormatting").run()
+print(TestCaseTest("testTemplateMethod").run().summary())
+print(TestCaseTest("testResult").run().summary())
+print(TestCaseTest("testFailedResult").run().summary())
+print(TestCaseTest("testFailedResultFormatting").run().summary())
