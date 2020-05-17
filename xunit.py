@@ -23,7 +23,6 @@ class TestCase:
             result.testFailed()
 
         self.tearDown()
-        return result
 
 class WasRun(TestCase):
     def setUp(self):
